@@ -17,6 +17,16 @@ void serve_dynamic(int fd, char *filename, char *cgiargs);
 void clienterror(int fd, char *cause, char *errnum, char *shortmsg,
                  char *longmsg);
 
+
+void doit(int fd) // HTTP 트랜 잭션을 처리한다.
+{
+  int is_static;
+  struct stat sbuf;
+  char buf[MAXLINE] , method[MAXLINE] , uri[MAXLINE] , version[MAXLINE];
+  char filename[MAXLINE] , cgiargs[MAXLINE];
+  rio_t rio;
+}
+
 int main(int argc, char **argv) {
   int listenfd, connfd;
   char hostname[MAXLINE], port[MAXLINE];
