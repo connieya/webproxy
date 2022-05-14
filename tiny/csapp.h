@@ -44,6 +44,7 @@ typedef struct sockaddr SA;
 /* $begin rio_t */
 #define RIO_BUFSIZE 8192
 typedef struct {
+    // RIO Robust I/O
     int rio_fd;                /* Descriptor for this internal buf */
     int rio_cnt;               /* Unread bytes in internal buf */
     char *rio_bufptr;          /* Next unread byte in internal buf */
@@ -173,6 +174,7 @@ void P(sem_t *sem);
 void V(sem_t *sem);
 
 /* Rio (Robust I/O) package */
+// 버퍼 없는 입력 및 출력 함수 , 메모리와 파일 간에 직접 데이터를 전송할수도 있다.
 ssize_t rio_readn(int fd, void *usrbuf, size_t n);
 ssize_t rio_writen(int fd, void *usrbuf, size_t n);
 void rio_readinitb(rio_t *rp, int fd); 
