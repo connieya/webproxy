@@ -5,21 +5,22 @@
 #include "csapp.h"
 
 int main(void) {
-  char *buf , *p;
+  char *buf, *p, *method;
   char arg1[MAXLINE] , arg2[MAXLINE] , content[MAXLINE];
   int n1 = 0, n2 = 0;
 
-  printf("hello world ! \n");
-  printf("test ! \n");
-
-  if((buf = getenv("QUERY_STRING ")) != NULL) {
+  if((buf = getenv("QUERY_STRING")) != NULL) {
     p = strchr(buf , '&');
     *p = '\0';
     strcpy(arg1 , buf);
     strcpy(arg2 , p+1);
-    n1 = atoi(arg1);
-    n2 = atoi(arg2);
+    // n1 = atoi(arg1);
+    // n2 = atoi(arg2);
+    sscanf(buf , "num1=%d", &n1);
+    sscanf(arg2 , "num2=%d",&n2);
   }
+
+  method = getenv("REQUEST_METHOD");
 
   sprintf(content , "Query_string = %s",buf);
   sprintf(content , "Welcome to add.com :");
@@ -31,6 +32,11 @@ int main(void) {
   printf("Content-length : %d\r\n", (int)strlen(content));
   printf("Content-type : text/html \r\n\r\n");
   printf("%s ", content);
+
+  if (strcasecmp(method, "HEAD") != 0)
+    printf("%s", content);
+
+
   fflush(stdout);
   
   exit(0);
